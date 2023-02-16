@@ -1,0 +1,8 @@
+function randomFraction() {
+
+  // Altere apenas o código abaixo desta linha
+var resultado = Math.random();
+  return resultado;
+
+  // Altere apenas o código acima desta linha
+}
