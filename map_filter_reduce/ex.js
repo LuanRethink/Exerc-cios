@@ -11,10 +11,9 @@ const stringConcat = (arr) => arr.reduce((acc, curr) => acc + curr, " ");
 
 // 3 - Dada uma array com dados sobre eleitores, crie uma função que
 // devolva a quantidade de pessoas abaixo de 30 anos que votaram.
-// const totalVeryYoungVotes = (arr) => arr.reduce(
-//   (acc) => (acc.age > 30 && acc.voted ? acc + 1 : acc),
-//   0
-// ); // seu código aqui
+const totalVeryYoungVotes = (arr) =>
+  arr.reduce((acc) => (acc.age > 30 && acc.voted ? acc + 1 : acc), 0); // seu código aqui
+
 let voters = [
   { name: "Bob", age: 30, voted: true },
   { name: "Jake", age: 32, voted: true },
@@ -63,6 +62,15 @@ const voters2 = [
   { name: "Zack", age: 19, voted: false },
 ];
 
+const votersAgeData = {
+  numYoungVotes: 0, // número de eleitores jovens que votaram
+  numYoungPeople: 0, // número de eleitores jovens
+  numMidVotesPeople: 0, // número de eleitores maduros que votaram
+  numMidsPeople: 0, // número de eleitores maduros
+  numOldVotesPeople: 0, // número de eleitores sêniores que votaram
+  numOldsPeople: 0, // número de eleitores sêniores
+};
+
 const votersResult = (arr) =>
   arr.reduce(
     (acc, curr) => {
@@ -87,12 +95,7 @@ const votersResult = (arr) =>
       return acc;
     },
     {
-      numYoungVotes: 0, // número de eleitores jovens que votaram
-      numYoungPeople: 0, // número de eleitores jovens
-      numMidVotesPeople: 0, // número de eleitores maduros que votaram
-      numMidsPeople: 0, // número de eleitores maduros
-      numOldVotesPeople: 0, // número de eleitores sêniores que votaram
-      numOldsPeople: 0, // número de eleitores sêniores
+      votersAgeData,
     }
   ); // seu código aqui
 
