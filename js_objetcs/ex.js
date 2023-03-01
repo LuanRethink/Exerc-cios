@@ -48,9 +48,7 @@ const showAllLanguages = (obj) => {
 // do objeto.
 
 const showKeys = (obj) => {
-  Object.keys(obj).forEach((key) => {
-    console.log(key);
-  });
+  return console.log(Object.keys(obj));
 };
 
 //showKeys(programming);
@@ -58,8 +56,7 @@ const showKeys = (obj) => {
 
 const showObjectValue = (obj) => {
   Object.keys(obj).forEach((key) => {
-    let valor = obj[key];
-    console.log(`Chave: ${key} valor: ${valor}`);
+    console.log(`Chave: ${key} valor: ${obj[key]}`);
   });
 };
 showObjectValue(programming);
