@@ -39,24 +39,17 @@ const addNewKey = (obj, keyName, keyValue) => {
 // 5. Crie uma função para exibir no console todas as linguagens de
 // programação armazenadas na chave "languages".
 
-const showAllLanguages = (obj) => {
-  console.log(obj.languages);
-};
+const showAllLanguages = (obj) => obj.languages;
 //showAllLanguages(programming)
 
 // 6. Crie uma função para exibir no console o nome de todas as chaves
 // do objeto.
 
-const showKeys = (obj) => {
-  return console.log(Object.keys(obj));
-};
+const showKeys = (obj) => Object.keys(obj);
 
 //showKeys(programming);
 // 7. Crie uma função para exibir no console todos os valores do objeto.
 
-const showObjectValue = (obj) => {
-  Object.keys(obj).forEach((key) => {
-    console.log(`Chave: ${key} valor: ${obj[key]}`);
-  });
-};
-showObjectValue(programming);
+const showObjectValue = (obj) => Object.values(obj);
+
+console.log(showObjectValue(programming));
