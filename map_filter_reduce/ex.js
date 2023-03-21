@@ -7,8 +7,6 @@ const total = (arr) => arr.reduce((acc, curr) => acc + curr);
 const stringConcat = (arr) => arr.reduce((acc, curr) => acc + curr, " ");
 //console.log(stringConcat([1, 2, 3])); // "123"
 
-1;
-
 // 3 - Dada uma array com dados sobre eleitores, crie uma função que
 // devolva a quantidade de pessoas abaixo de 30 anos que votaram.
 const totalVeryYoungVotes = (arr) =>
@@ -99,7 +97,7 @@ const votersResult = (arr) =>
     }
   ); // seu código aqui
 
-console.log(votersResult(voters2)); // Returned value shown below:
+//console.log(votersResult(voters2)); // Returned value shown below:
 // 1
 // 4
 // 3
