@@ -16,6 +16,13 @@ app.use(express.static("public"));
 app.use(helmet());
 app.use(morgan("tiny"));
 
+function validateCourse(course) {
+  const schema = {
+    name: Joi.string().min(3).required(),
+  };
+  return Joi.validate(course, schema);
+}
+
 app.get("/", (request, response) => {
   response.send(`alo`);
 });
@@ -25,11 +32,8 @@ app.get("/courses", (request, response) => {
 });
 
 app.post("/courses", (request, response) => {
-  const schema = {
-    name: Joi.string().min(3).required(),
-  };
-  const result = Joi.validate(request.body, schema);
-  if (result.error) {
+  const { error } = validateCourse(request.body);
+  if (error) {
     response.status(400).send(result.error.details[0].message);
     return;
   }
@@ -43,7 +47,7 @@ app.post("/courses", (request, response) => {
 
 app.get("/courses/:id", (request, response) => {
   const course = courses.find((c) => c.id === parseInt(request.params.id));
-  if (!course) response.status(404).send("ID não retornou nenhum curso");
+  if (!course) return response.status(404).send("ID não retornou nenhum curso");
   response.send(course);
 });
 
@@ -51,7 +55,24 @@ app.get("/courses/:year/:month", (request, response) => {
   response.send(request.query);
 });
 
-app.put("/courses/:id", (request, response) => {});
+app.put("/courses/:id", (request, response) => {
+  const course = courses.find((c) => c.id === parseInt(request.params.id));
+  if (!course) return response.status(404).send("ID não retornou nenhum curso");
+
+  const { error } = validateCourse(request.body);
+  if (error) return response.status(400).send(result.error.details[0].message);
+
+  course.name = req.body.name;
+  response.send(course);
+});
+
+app.delete("/courses/delete", (request, response) => {
+  const course = courses.find((c) => c.id === parseInt(request.params.id));
+  if (!course) return response.status(404).send("ID não retornou nenhum curso");
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+  response.send(course);
+});
 
 const port = process.env.PORT || 3000;
 
