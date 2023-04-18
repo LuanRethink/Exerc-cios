@@ -31,24 +31,22 @@ app.get("/courses", (request, response) => {
   response.send(courses);
 });
 
+app.get("/courses/:id", (request, response) => {
+  const course = courses.find((c) => c.id === parseInt(request.params.id));
+  if (!course) return response.status(404).send("ID não retornou nenhum curso");
+  response.send(course);
+});
+
 app.post("/courses", (request, response) => {
   const { error } = validateCourse(request.body);
-  if (error) {
-    response.status(400).send(result.error.details[0].message);
-    return;
-  }
+  if (error) return response.status(400).send(result.error.details[0].message);
+
   const course = {
     id: courses.length + 1,
     name: request.body.name,
   };
   courses.push(course);
   response.send(courses);
-});
-
-app.get("/courses/:id", (request, response) => {
-  const course = courses.find((c) => c.id === parseInt(request.params.id));
-  if (!course) return response.status(404).send("ID não retornou nenhum curso");
-  response.send(course);
 });
 
 app.get("/courses/:year/:month", (request, response) => {
