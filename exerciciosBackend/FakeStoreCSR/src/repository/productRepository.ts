@@ -57,30 +57,22 @@ const insert = async (item: ProductWithCategoryId) => {
 };
 
 const update = async (id: number, item: ProductWithCategoryId) => {
-  try {
-    const { title, price, category_id, description, image, rate, countRate } =
-      item;
-    const updatedData: ProductWithCategoryId = {
-      title,
-      price,
-      category_id,
-      description,
-      image,
-      rate,
-      countRate,
-    };
-    return await knexInstance("products").update(updatedData).where({ id });
-  } catch (error) {
-    throw error;
-  }
+  const { title, price, category_id, description, image, rate, countRate } =
+    item;
+  const updatedData: ProductWithCategoryId = {
+    title,
+    price,
+    category_id,
+    description,
+    image,
+    rate,
+    countRate,
+  };
+  return await knexInstance("products").update(updatedData).where({ id });
 };
 
 const remove = async (id: number) => {
-  try {
-    return await knexInstance("products").delete().where({ id });
-  } catch (error) {
-    throw error;
-  }
+  return await knexInstance("products").delete().where({ id });
 };
 
 export default { index, selecByCategoryId, selectById, insert, update, remove };

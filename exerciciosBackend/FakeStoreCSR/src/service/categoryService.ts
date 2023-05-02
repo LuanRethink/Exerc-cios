@@ -42,30 +42,18 @@ const findCategoryById = async (id: number) => {
 };
 
 const insertCategory = async (category: Categorie) => {
-  try {
-    const hasCategory = await categoryRepository.selectByName(category.name);
-    if (hasCategory.length) throw new Error("Category already exists!");
-    return await categoryRepository.insert(category);
-  } catch (error) {
-    throw error;
-  }
+  const hasCategory = await categoryRepository.selectByName(category.name);
+  if (hasCategory.length) throw new Error("Category already exists!");
+  return await categoryRepository.insert(category);
 };
 
 const updateCategory = async (categoryId: number, newCategory: Categorie) => {
-  try {
-    return await categoryRepository.update(categoryId, newCategory);
-  } catch (error) {
-    throw error;
-  }
+  return await categoryRepository.update(categoryId, newCategory);
 };
 
 const deleteCategory = async (id: number) => {
-  try {
-    //fazer lógica para permitir deletar categorias
-    return await categoryRepository.remove(id);
-  } catch (error) {
-    throw error;
-  }
+  //fazer lógica para permitir deletar categorias
+  return await categoryRepository.remove(id);
 };
 
 export default {
