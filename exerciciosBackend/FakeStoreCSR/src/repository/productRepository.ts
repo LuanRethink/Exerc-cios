@@ -26,18 +26,52 @@ export type Product = {
 
 const index = async () => {
   const products: Product[] = await knexInstance("products")
-    .select("*")
+    .select(
+      "products.id",
+      "products.title",
+      "products.price",
+      "products.description",
+      "products.title",
+      "categories.name as category",
+      "products.image",
+      "products.rate",
+      "products.countRate"
+    )
     .join("categories", "categories.id", "=", "products.category_id");
   return products;
 };
 
 const selectById = async (id: number) => {
-  return await knexInstance("products").select("*").where({ id });
+  const a = await knexInstance("products")
+    .select(
+      "products.id",
+      "products.title",
+      "products.price",
+      "products.description",
+      "products.title",
+      "categories.name as category",
+      "products.image",
+      "products.rate",
+      "products.countRate"
+    )
+    .join("categories", "categories.id", "=", "products.category_id")
+    .where({ "products.id": id });
+  return a;
 };
 
 const selecByCategoryId = async (id: number) => {
   return await knexInstance("products")
-    .select("*")
+    .select(
+      "products.id",
+      "products.title",
+      "products.price",
+      "products.description",
+      "products.title",
+      "categories.name as category",
+      "products.image",
+      "products.rate",
+      "products.countRate"
+    )
     .join("categories", "categories.id", "=", "products.category_id")
     .where({ category_id: id });
 };

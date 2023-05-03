@@ -41,6 +41,21 @@ const getById = async (id: number) => {
   });
 };
 
+const insertProduct = async (item: Product) => {
+  const category: any = await categoryRepository.selectByName(item.category);
+  const newProduct: ProductWithCategoryId = {
+    title: item.title,
+    price: item.price,
+    category_id: category[0].id,
+    description: item.description,
+    image: item.image,
+    rate: item.rate,
+    countRate: item.countRate,
+  };
+  const answerId = await productRepository.insert(newProduct);
+  return productRepository.selectById(answerId[0]);
+};
+
 const getByCategoryId = async (id: number) => {
   const productsArr = await productRepository.selecByCategoryId(id);
   if (productsArr.length === 0) throw new Error("Product not Found");
@@ -65,8 +80,11 @@ const hasProductInThisCategory = async (id: number) => {
   return !(productsArr.length === 0);
 };
 
-const insertProduct = async (item: Product) => {
+const updateProduct = async (id: number, item: Product) => {
+  const product: any = await productRepository.selectById(id);
+  if (!product) throw new Error("Product was not found");
   const category: any = await categoryRepository.selectByName(item.category);
+  console.log(product);
   const newProduct: ProductWithCategoryId = {
     title: item.title,
     price: item.price,
@@ -75,24 +93,6 @@ const insertProduct = async (item: Product) => {
     image: item.image,
     rate: item.rate,
     countRate: item.countRate,
-  };
-
-  const answerId = await productRepository.insert(newProduct);
-  return productRepository.selectById(answerId[0]);
-};
-
-const updateProduct = async (id: number, item: Product) => {
-  const product: any = await productRepository.selectById(id);
-  if (!product) throw new Error("Product was not found");
-  const category: any = await categoryRepository.selectByName(item.category);
-  const newProduct: ProductWithCategoryId = {
-    title: product.title,
-    price: product.price,
-    category_id: category[0].id,
-    description: product.description,
-    image: product.image,
-    rate: product.rating.rate,
-    countRate: product.rating.count,
   };
 
   await productRepository.update(id, newProduct);

@@ -5,6 +5,7 @@ const router: Router = Router();
 
 router.get("/", productsController.index);
 router.get("/:id", productsController.show);
+router.get("/category/:id", productsController.showByCategory);
 router.post("/", productsController.insert);
 router.put("/:id", productsController.update);
 router.delete("/:id", productsController.remove);

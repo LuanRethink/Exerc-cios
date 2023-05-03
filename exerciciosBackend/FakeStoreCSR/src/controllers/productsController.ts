@@ -13,12 +13,22 @@ const index = async (req: Request, res: Response) => {
 const show = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
-    const product = await productService.getByCategoryId(id);
-    if (!product.length) throw new Error("Esse produto não existe");
+    const product = await productService.getById(id);
+    if (!product.length) throw new Error("This product does not exist!");
 
     res.status(200).json(product);
   } catch (error: any) {
     res.send(error.message ? { error: error.message } : error);
+  }
+};
+const showByCategory = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id);
+    const product = await productService.getByCategoryId(id);
+    if (!product.length) throw new Error("No products within this category!");
+    res.status(200).json(product);
+  } catch (error: any) {
+    res.send(error);
   }
 };
 
@@ -59,4 +69,4 @@ const remove = async (req: Request, res: Response) => {
   }
 };
 
-export default { insert, index, show, update, remove };
+export default { insert, index, show, showByCategory, update, remove };

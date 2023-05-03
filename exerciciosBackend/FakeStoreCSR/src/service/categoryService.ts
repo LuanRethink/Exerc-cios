@@ -21,6 +21,12 @@ const getProducts = async (name: string) => {
   }
 };
 
+const insertCategory = async (category: Categorie) => {
+  const hasCategory = await categoryRepository.selectByName(category.name);
+  if (hasCategory.length) throw new Error("Category already exists!");
+  return await categoryRepository.insert(category);
+};
+
 const findCategoryByName = async (name: string) => {
   try {
     const category = await categoryRepository.selectByName(name);
@@ -39,12 +45,6 @@ const findCategoryById = async (id: number) => {
   } catch (error) {
     throw error;
   }
-};
-
-const insertCategory = async (category: Categorie) => {
-  const hasCategory = await categoryRepository.selectByName(category.name);
-  if (hasCategory.length) throw new Error("Category already exists!");
-  return await categoryRepository.insert(category);
 };
 
 const updateCategory = async (categoryId: number, newCategory: Categorie) => {
